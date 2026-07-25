@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Cafetería Sheila | Calahorra</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --cafe-oscuro: #3e2723;
+            --cafe-medio: #5d4037;
+            --beige-claro: #f5f0e6;
+            --beige-oscuro: #e4d5b7;
+            --acento: #d35400; 
+            --blanco: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--beige-claro); color: var(--cafe-oscuro); background-image: repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(93, 64, 55, 0.03) 50px); }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* CABECERA */
+        .hero {
+            /* AQUÍ ESTÁ EL FONDO. Cambia fondo.jpg por el nombre de tu imagen principal */
+            background: linear-gradient(rgba(62, 39, 35, 0.8), rgba(62, 39, 35, 0.8)), url('fondo.jpg') center/cover;
+            color: var(--blanco);
+            text-align: center;
+            padding: 80px 20px;
+            border-bottom: 5px solid var(--acento);
+        }
+        .logo-text { font-size: 4rem; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); display: inline-block; border-top: 2px solid var(--beige-oscuro); border-bottom: 2px solid var(--beige-oscuro); padding: 10px 0; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin: 20px auto; font-style: italic; color: var(--beige-claro); }
+
+        .btn { background-color: var(--acento); color: var(--blanco); padding: 12px 24px; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; }
+        .btn:hover { background-color: #a04000; transform: translateY(-2px); }
+
+        .section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+        .about-card { background: var(--blanco); padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; border: 1px solid var(--beige-oscuro); }
+        .about-card h2 { font-size: 2.5rem; color: var(--cafe-medio); margin-bottom: 20px; }
+        .about-card p { font-size: 1.1rem; line-height: 1.8; color: #555; }
+        .highlight { color: var(--acento); font-weight: 600; }
+        
+        /* BADGE ENTREGA */
+        .no-delivery { display: inline-block; background-color: #ffebee; color: #c62828; padding: 8px 16px; border-radius: 20px; font-weight: bold; margin-top: 15px; font-size: 0.95rem; }
+
+        /* GALERÍA */
+        .gallery-wrapper { position: relative; margin-top: 40px; overflow: hidden; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .gallery-container { display: flex; transition: transform 0.4s ease-in-out; }
+        .gallery-container img { width: 100%; flex-shrink: 0; height: 400px; object-fit: cover; cursor: zoom-in; background-color: #ccc; }
+        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(62, 39, 35, 0.7); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; z-index: 2; }
+        .carousel-btn.prev { left: 10px; } .carousel-btn.next { right: 10px; }
+
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 999; align-items: center; justify-content: center; }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 5px; }
+        .lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 3rem; cursor: pointer; }
+
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .info-box { background: var(--blanco); padding: 30px; border-radius: 10px; border-top: 4px solid var(--cafe-medio); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .info-box h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--cafe-oscuro); display: flex; align-items: center; gap: 10px; }
+        
+        .hours-table { width: 100%; border-collapse: collapse; }
+        .hours-table td { padding: 8px 0; border-bottom: 1px dashed var(--beige-oscuro); }
+        .festivo-note { font-size: 0.85rem; color: var(--acento); margin-top: 10px; display: block; font-style: italic; }
+
+        .rating { font-size: 2.5rem; font-weight: bold; color: var(--cafe-oscuro); }
+        .stars { color: #f1c40f; font-size: 1.2rem; }
+        .review-snippet { background: var(--beige-claro); padding: 15px; border-radius: 8px; margin: 15px 0; font-style: italic; border-left: 3px solid var(--acento); }
+        .precio-badge { display: inline-block; background: var(--beige-oscuro); padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; margin-bottom: 15px; }
+
+        .map-container { width: 100%; height: 350px; border-radius: 10px; overflow: hidden; margin-bottom: 20px; border: 2px solid var(--beige-oscuro); }
+        .location-actions { text-align: center; }
+
+        footer { background: var(--cafe-oscuro); color: var(--beige-claro); text-align: center; padding: 30px 20px; margin-top: 40px; }
+
+        @media (max-width: 768px) { .logo-text { font-size: 2.5rem; } .gallery-container img { height: 250px; } }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="logo-container"><h1 class="logo-text">BAR CAFETERÍA SHEILA</h1></div>
+        <p>"El sabor de la tradición y el mejor ambiente en el corazón de Calahorra"</p>
+        <button class="btn" onclick="scrollToInfo()"><i class="fa-solid fa-mug-hot"></i> Descubre más</button>
+    </header>
+
+    <div class="section" id="info-section">
+        
+        <div class="about-card">
+            <h2>Nuestra Esencia</h2>
+            <!-- AQUÍ ESTÁ TU TEXTO EXACTO DE LA CAPTURA -->
+            <p>"Somos una empresa pequeña que está destinada a servir al público. Damos <span class="highlight">uno de los mejores cafés de Calahorra</span> y las <span class="highlight">mejores rabas de la ciudad</span> los sábados y domingos."</p>
+            
+            <!-- AQUÍ ESTÁ EL AVISO DE DOMICILIO QUE PEDISTE -->
+            <div class="no-delivery"><i class="fa-solid fa-ban"></i> No hay entrega a domicilio</div>
+        </div>
+
+        <div class="gallery-wrapper">
+            <button class="carousel-btn prev" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="carousel-btn next" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+            
+            <div class="gallery-container" id="gallery">
+                <!-- ATENCIÓN: AQUÍ ES DONDE TIENES QUE PONER EL NOMBRE DE TUS FOTOS DE GITHUB -->
+                <!-- Ejemplo: Si has subido una foto que se llama bar1.jpg, escríbelo en el src="" -->
+                <img src="foto1.jpg" alt="Interior del bar Sheila" onclick="openLightbox(this.src)">
+                <img src="foto2.jpg" alt="Pinchos" onclick="openLightbox(this.src)">
+                <img src="foto3.jpg" alt="Desayunos" onclick="openLightbox(this.src)">
+            </div>
+        </div>
+
+        <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+            <span class="lightbox-close">&times;</span>
+            <img id="lightbox-img" src="" alt="Ampliada">
+        </div>
+
+        <div class="info-grid">
+            
+            <div class="info-box">
+                <h3><i class="fa-solid fa-star"></i> Valoraciones</h3>
+                <div class="precio-badge">Precio por persona: 1-10 €</div>
+                <div><span class="rating">4,2</span> <span style="font-size:1.5rem;">/ 5</span><br><span class="stars">★★★★☆</span> (74 reseñas)</div>
+                <div class="review-snippet">
+                    "Fuimos a probar los calamares y hay que decir que la fritura la hacen muy bien, hecho en el momento. El próximo día probaré los chopitos..." <br><strong>- Carmen Barco Monsalve</strong>
+                </div>
+                <!-- ENLACE REAL A GOOGLE MAPS CORREGIDO -->
+                <a href="https://www.google.com/maps/search/?api=1&query=Bar+Cafetería+Sheila,+Plaza+de+la+Libertad,+Calahorra,+La+Rioja" target="_blank" class="btn" style="width: 100%; justify-content: center; background-color: var(--cafe-medio); margin-top: 10px;">
+                    <i class="fa-brands fa-google"></i> Ver y añadir opiniones
+                </a>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fa-regular fa-clock"></i> Horario</h3>
+                <table class="hours-table">
+                    <tr><td>Lunes a Jueves</td><td>6:00 – 22:00</td></tr>
+                    <tr><td>Viernes</td><td>6:00 – 22:30</td></tr>
+                    <tr><td><strong>Sábado</strong></td><td><strong>6:00 – 23:00</strong></td></tr>
+                    <tr><td><strong>Domingo</strong></td><td><strong>8:00 – 15:00</strong></td></tr>
+                </table>
+                <span class="festivo-note"><i class="fa-solid fa-triangle-exclamation"></i> Festividad de Santiago Apóstol: el horario podría ser diferente.</span>
+            </div>
+
+            <div class="info-box">
+                <h3><i class="fa-solid fa-map-location-dot"></i> Dónde estamos</h3>
+                <p style="margin-bottom: 15px;">Pl. de la Libertad, 26500 Calahorra, La Rioja</p>
+                <div class="map-container">
+                    <iframe src="https://maps.google.com/maps?q=Plaza%20de%20la%20Libertad,%20Calahorra,%20La%20Rioja&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="location-actions">
+                    <button class="btn" onclick="obtenerRuta()" style="width: 100%; justify-content: center;"><i class="fa-solid fa-location-arrow"></i> Cómo llegar (GPS en vivo)</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <h2>Bar Cafetería Sheila</h2>
+        <p>Plaza de la Libertad, 26500 Calahorra, La Rioja</p>
+        <p style="margin-top: 15px; font-size: 0.9rem; opacity: 0.7;">&copy; 2026 Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        function scrollToInfo() { document.getElementById('info-section').scrollIntoView({ behavior: 'smooth' }); }
+        let currentSlide = 0; const gallery = document.getElementById('gallery'); 
+        function moveSlide(direction) {
+            const totalSlides = gallery.children.length;
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = totalSlides - 1;
+            if (currentSlide >= totalSlides) currentSlide = 0;
+            gallery.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+        const lightbox = document.getElementById('lightbox'), lightboxImg = document.getElementById('lightbox-img');
+        function openLightbox(src) { lightboxImg.src = src; lightbox.style.display = 'flex'; document.body.style.overflow = 'hidden'; }
+        function closeLightbox(e) { if(e.target !== lightboxImg) { lightbox.style.display = 'none'; document.body.style.overflow = 'auto'; } }
+        function obtenerRuta() {
+            const destino = "Plaza+de+la+Libertad,26500+Calahorra,+La+Rioja";
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    pos => window.open(`https://www.google.com/maps/dir/?api=1&origin=${pos.coords.latitude},${pos.coords.longitude}&destination=${destino}`, '_blank'),
+                    err => window.open(`https://www.google.com/maps/dir/?api=1&destination=${destino}`, '_blank')
+                );
+            } else { window.open(`https://www.google.com/maps/dir/?api=1&destination=${destino}`, '_blank'); }
+        }
+    </script>
+</body>
+</html>
